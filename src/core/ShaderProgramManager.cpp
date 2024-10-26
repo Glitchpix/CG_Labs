@@ -14,9 +14,10 @@
 ShaderProgramManager::~ShaderProgramManager()
 {
 	for (auto& i : program_entries) {
-		if (i.first != 0u) {
-			glDeleteProgram(*i.first);
-			i.first = 0u;
+		auto& program = *i.first;
+		if (program != 0u) {
+			glDeleteProgram(program);
+			program = 0u;
 		}
 	}
 }
@@ -60,9 +61,9 @@ bool ShaderProgramManager::ReloadAllPrograms()
 {
 	bool encountered_failures = false;
 	for (std::size_t i = 0; i < program_entries.size(); ++i) {
-		auto& program = program_entries[i].first;
+		auto& program = *program_entries[i].first;
 		if (program != 0u)
-			glDeleteProgram(*program);
+			glDeleteProgram(program);
 		program = 0u;
 		ProcessProgram(i);
 		encountered_failures |= program == 0u;
@@ -88,7 +89,7 @@ ShaderProgramManager::SelectedProgram ShaderProgramManager::SelectProgram(std::s
 void ShaderProgramManager::ProcessProgram(std::size_t const program_index)
 {
 	auto& program_entry = program_entries[program_index];
-	auto& program = program_entry.first;
+	auto& program = *program_entry.first;
 	auto const& program_data = program_entry.second;
 
 	std::vector<GLuint> shaders;
@@ -112,8 +113,8 @@ void ShaderProgramManager::ProcessProgram(std::size_t const program_index)
 		shaders.push_back(shader);
 	}
 
-	*program = utils::opengl::shader::generate_program(shaders);
-	utils::opengl::debug::nameObject(GL_PROGRAM, *program, program_names[program_index]);
+	program = utils::opengl::shader::generate_program(shaders);
+	utils::opengl::debug::nameObject(GL_PROGRAM, program, program_names[program_index]);
 
 	for (auto& shader : shaders)
 		glDeleteShader(shader);
