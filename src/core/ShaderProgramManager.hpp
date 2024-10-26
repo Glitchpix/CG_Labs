@@ -9,6 +9,7 @@
 #include <vector>
 
 #include <cstdint>
+#include <memory>
 
 enum class ShaderType : std::uint32_t {
 	vertex = GL_VERTEX_SHADER,
@@ -29,14 +30,14 @@ public:
 		char const* name = nullptr;
 	};
 	~ShaderProgramManager();
-	void CreateAndRegisterProgram(char const* const program_name, ProgramData const& program_data, GLuint& program);
-	void CreateAndRegisterComputeProgram(char const* const program_name, std::string const& filename, GLuint& program);
+	GLuint& CreateAndRegisterProgram(char const* const program_name, ProgramData const& program_data);
+	GLuint& CreateAndRegisterComputeProgram(char const* const program_name, std::string const& filename);
 	bool ReloadAllPrograms();
 	SelectedProgram SelectProgram(std::string const& label, std::int32_t& program_index);
 
 private:
 	void ProcessProgram(std::size_t program_index);
-	using ProgramEntry = std::pair<GLuint&, ProgramData>;
+	using ProgramEntry = std::pair<std::unique_ptr<GLuint>, ProgramData>;
 	std::vector<ProgramEntry> program_entries;
 	std::vector<char const*> program_names;
 };

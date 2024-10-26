@@ -247,21 +247,17 @@ edan35::Assignment2::run()
 	// Load all the shader programs used
 	//
 	ShaderProgramManager program_manager;
-	GLuint fallback_shader = 0u;
-	program_manager.CreateAndRegisterProgram("Fallback",
+	GLuint& fallback_shader = program_manager.CreateAndRegisterProgram("Fallback",
 	                                         { { ShaderType::vertex, "common/fallback.vert" },
-	                                           { ShaderType::fragment, "common/fallback.frag" } },
-	                                         fallback_shader);
+	                                           { ShaderType::fragment, "common/fallback.frag" } });
 	if (fallback_shader == 0u) {
 		LogError("Failed to load fallback shader");
 		return;
 	}
 
-	GLuint fill_gbuffer_shader = 0u;
-	program_manager.CreateAndRegisterProgram("Fill G-Buffer",
+	GLuint& fill_gbuffer_shader = program_manager.CreateAndRegisterProgram("Fill G-Buffer",
 	                                         { { ShaderType::vertex, "EDAN35/fill_gbuffer.vert" },
-	                                           { ShaderType::fragment, "EDAN35/fill_gbuffer.frag" } },
-	                                         fill_gbuffer_shader);
+	                                           { ShaderType::fragment, "EDAN35/fill_gbuffer.frag" } });
 	if (fill_gbuffer_shader == 0u) {
 		LogError("Failed to load G-buffer filling shader");
 		return;
@@ -269,11 +265,9 @@ edan35::Assignment2::run()
 	GBufferShaderLocations fill_gbuffer_shader_locations;
 	fillGBufferShaderLocations(fill_gbuffer_shader, fill_gbuffer_shader_locations);
 
-	GLuint fill_shadowmap_shader = 0u;
-	program_manager.CreateAndRegisterProgram("Fill shadow map",
+	GLuint& fill_shadowmap_shader = program_manager.CreateAndRegisterProgram("Fill shadow map",
 	                                         { { ShaderType::vertex, "EDAN35/fill_shadowmap.vert" },
-	                                           { ShaderType::fragment, "EDAN35/fill_shadowmap.frag" } },
-	                                         fill_shadowmap_shader);
+	                                           { ShaderType::fragment, "EDAN35/fill_shadowmap.frag" } });
 	if (fill_shadowmap_shader == 0u) {
 		LogError("Failed to load shadowmap filling shader");
 		return;
@@ -281,11 +275,9 @@ edan35::Assignment2::run()
 	FillShadowmapShaderLocations fill_shadowmap_shader_locations;
 	fillShadowmapShaderLocations(fill_shadowmap_shader, fill_shadowmap_shader_locations);
 
-	GLuint accumulate_lights_shader = 0u;
-	program_manager.CreateAndRegisterProgram("Accumulate light",
+	GLuint& accumulate_lights_shader = program_manager.CreateAndRegisterProgram("Accumulate light",
 	                                         { { ShaderType::vertex, "EDAN35/accumulate_lights.vert" },
-	                                           { ShaderType::fragment, "EDAN35/accumulate_lights.frag" } },
-	                                         accumulate_lights_shader);
+	                                           { ShaderType::fragment, "EDAN35/accumulate_lights.frag" } });
 	if (accumulate_lights_shader == 0u) {
 		LogError("Failed to load lights accumulating shader");
 		return;
@@ -293,21 +285,17 @@ edan35::Assignment2::run()
 	AccumulateLightsShaderLocations accumulate_light_shader_locations;
 	fillAccumulateLightsShaderLocations(accumulate_lights_shader, accumulate_light_shader_locations);
 
-	GLuint resolve_deferred_shader = 0u;
-	program_manager.CreateAndRegisterProgram("Resolve deferred",
+	GLuint& resolve_deferred_shader = program_manager.CreateAndRegisterProgram("Resolve deferred",
 	                                         { { ShaderType::vertex, "EDAN35/resolve_deferred.vert" },
-	                                           { ShaderType::fragment, "EDAN35/resolve_deferred.frag" } },
-	                                         resolve_deferred_shader);
+	                                           { ShaderType::fragment, "EDAN35/resolve_deferred.frag" } });
 	if (resolve_deferred_shader == 0u) {
 		LogError("Failed to load deferred resolution shader");
 		return;
 	}
 
-	GLuint render_light_cones_shader = 0u;
-	program_manager.CreateAndRegisterProgram("Render light cones",
+	GLuint& render_light_cones_shader = program_manager.CreateAndRegisterProgram("Render light cones",
 	                                         { { ShaderType::vertex, "EDAN35/render_light_cones.vert" },
-	                                           { ShaderType::fragment, "EDAN35/render_light_cones.frag" } },
-	                                         render_light_cones_shader);
+	                                           { ShaderType::fragment, "EDAN35/render_light_cones.frag" } });
 	if (render_light_cones_shader == 0u) {
 		LogError("Failed to load light cones rendering shader");
 		return;

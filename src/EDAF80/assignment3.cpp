@@ -49,37 +49,29 @@ edaf80::Assignment3::run()
 
 	// Create the shader programs
 	ShaderProgramManager program_manager;
-	GLuint fallback_shader = 0u;
-	program_manager.CreateAndRegisterProgram("Fallback",
+	GLuint& fallback_shader = program_manager.CreateAndRegisterProgram("Fallback",
 	                                         { { ShaderType::vertex, "common/fallback.vert" },
-	                                           { ShaderType::fragment, "common/fallback.frag" } },
-	                                         fallback_shader);
+	                                           { ShaderType::fragment, "common/fallback.frag" } });
 	if (fallback_shader == 0u) {
 		LogError("Failed to load fallback shader");
 		return;
 	}
 
-	GLuint diffuse_shader = 0u;
-	program_manager.CreateAndRegisterProgram("Diffuse",
+	GLuint& diffuse_shader = program_manager.CreateAndRegisterProgram("Diffuse",
 	                                         { { ShaderType::vertex, "EDAF80/diffuse.vert" },
-	                                           { ShaderType::fragment, "EDAF80/diffuse.frag" } },
-	                                         diffuse_shader);
+	                                           { ShaderType::fragment, "EDAF80/diffuse.frag" } });
 	if (diffuse_shader == 0u)
 		LogError("Failed to load diffuse shader");
 
-	GLuint normal_shader = 0u;
-	program_manager.CreateAndRegisterProgram("Normal",
+	GLuint& normal_shader = program_manager.CreateAndRegisterProgram("Normal",
 	                                         { { ShaderType::vertex, "EDAF80/normal.vert" },
-	                                           { ShaderType::fragment, "EDAF80/normal.frag" } },
-	                                         normal_shader);
+	                                           { ShaderType::fragment, "EDAF80/normal.frag" } });
 	if (normal_shader == 0u)
 		LogError("Failed to load normal shader");
 
-	GLuint texcoord_shader = 0u;
-	program_manager.CreateAndRegisterProgram("Texture coords",
+	GLuint& texcoord_shader = program_manager.CreateAndRegisterProgram("Texture coords",
 	                                         { { ShaderType::vertex, "EDAF80/texcoord.vert" },
-	                                           { ShaderType::fragment, "EDAF80/texcoord.frag" } },
-	                                         texcoord_shader);
+	                                           { ShaderType::fragment, "EDAF80/texcoord.frag" } });
 	if (texcoord_shader == 0u)
 		LogError("Failed to load texcoord shader");
 

@@ -43,11 +43,9 @@ edaf80::Assignment5::run()
 
 	// Create the shader programs
 	ShaderProgramManager program_manager;
-	GLuint fallback_shader = 0u;
-	program_manager.CreateAndRegisterProgram("Fallback",
+	GLuint& fallback_shader = program_manager.CreateAndRegisterProgram("Fallback",
 	                                         { { ShaderType::vertex, "common/fallback.vert" },
-	                                           { ShaderType::fragment, "common/fallback.frag" } },
-	                                         fallback_shader);
+	                                           { ShaderType::fragment, "common/fallback.frag" } });
 	if (fallback_shader == 0u) {
 		LogError("Failed to load fallback shader");
 		return;

@@ -69,11 +69,9 @@ int main()
 	// Create the shader program
 	//
 	ShaderProgramManager program_manager;
-	GLuint celestial_body_shader = 0u;
-	program_manager.CreateAndRegisterProgram("Celestial Body",
+	GLuint& celestial_body_shader = program_manager.CreateAndRegisterProgram("Celestial Body",
 	                                         { { ShaderType::vertex, "EDAF80/default.vert" },
-	                                           { ShaderType::fragment, "EDAF80/default.frag" } },
-	                                         celestial_body_shader);
+	                                           { ShaderType::fragment, "EDAF80/default.frag" } });
 	if (celestial_body_shader == 0u) {
 		LogError("Failed to generate the “Celestial Body” shader program: exiting.");
 
@@ -81,11 +79,9 @@ int main()
 
 		return EXIT_FAILURE;
 	}
-	GLuint celestial_ring_shader = 0u;
-	program_manager.CreateAndRegisterProgram("Celestial Ring",
+	GLuint& celestial_ring_shader = program_manager.CreateAndRegisterProgram("Celestial Ring",
 	                                         { { ShaderType::vertex, "EDAF80/celestial_ring.vert" },
-	                                           { ShaderType::fragment, "EDAF80/celestial_ring.frag" } },
-	                                         celestial_ring_shader);
+	                                           { ShaderType::fragment, "EDAF80/celestial_ring.frag" } });
 	if (celestial_ring_shader == 0u) {
 		LogError("Failed to generate the “Celestial Ring” shader program: exiting.");
 
